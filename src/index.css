@@ -322,9 +322,7 @@ button:disabled {
   align-items: center;
   padding: 14px;
 }
-.user:hover {
-  background-color: #34495e;
-}
+
 .dashboard-home {
   display: flex;
   flex-direction: row;
@@ -1022,6 +1020,9 @@ button:disabled {
 }
 #dashboard-menu{
   display: block;
+}
+.user img{
+  margin: 0px 0px;
 }
 
 }
