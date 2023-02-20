@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useRef, useState, useEffect } from "react";
 import axios from "axios";
 
-const USER_REGEX = /^[A-Za-z][A-Za-z0-9_]{7,29}$/;
+const USER_REGEX = /^[a-zA-Z\-]+$/;
 const PWD_REGEX =
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/;
 const EMAIL_REGEX = /^[a-zA-Z0-9]+@+[a-zA-Z0-9]+.+[A-z]/;
