@@ -6,14 +6,15 @@ const NewPost = () => {
   const onSubmit = async (data) => {
     const formData = new FormData();
     formData.append("title", data.title);
-    formData.append("description", data.description);
-    formData.append("image", data.image[0]);
+    formData.append("category", data.category);
+    formData.append("body", data.body);
+    formData.append("file", data.file[0]);
     console.log(formData.get("title"));
     console.log(data);
 
     try {
       await axios.post(
-        "https://blogapi-wm30.onrender.com/api/v1/blog",
+        "https://blogzilha-piyj.onrender.com/api/stories",
         formData,
         {
           headers: {
@@ -37,17 +38,16 @@ const NewPost = () => {
         <input type="text" {...register("title")} />
       </div>
       <div className="blog-form-control">
+        <label>Category</label>
+        <input type="text" {...register("category")} />
+      </div>
+      <div className="blog-form-control">
         <label>Description</label>
-        <textarea
-          type="text"
-          cols="20"
-          rows="10"
-          {...register("description")}
-        />
+        <textarea type="text" cols="20" rows="10" {...register("body")} />
       </div>
       <div className="blog-form-control">
         <label>Image</label>
-        <input type="file" {...register("image")} />
+        <input type="file" {...register("file")} />
       </div>
       <div className="modal-footer">
         <button className="add">Add Blog</button>

@@ -1,16 +1,21 @@
 import { Outlet } from "react-router-dom";
 import { FaHome, FaPlusSquare, FaFileAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import {FaBars} from "react-icons/fa";
+import {useState} from "react";
 
 const Dashboard = () => {
   const brandStyles = {
     color: "#fff",
     textDecoration: "none",
   };
+  const [menu, setMenu] = useState(false);
+
 
   return (
     <>
       <header className="header-styles">
+        <FaBars id="dashboard-menu"onClick={()=> setMenu(!menu)}/>
         <Link to="/" style={brandStyles}>
           <h3>The Blog</h3>
         </Link>
@@ -20,7 +25,7 @@ const Dashboard = () => {
         </div>
       </header>
       <div className="dash-container">
-        <aside className="sidebar-styles">
+        <aside className={menu? "menu-open":"sidebar-styles"}>
           <ul className="sidebar-items">
             <Link
               to="/dashboard"

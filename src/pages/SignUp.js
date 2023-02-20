@@ -1,5 +1,5 @@
 /* eslint-disable no-useless-escape */
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { useRef, useState, useEffect } from "react";
 import axios from "axios";
@@ -9,9 +9,10 @@ const PWD_REGEX =
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/;
 const EMAIL_REGEX = /^[a-zA-Z0-9]+@+[a-zA-Z0-9]+.+[A-z]/;
 
-const REGISTER_URL = "https://blogapi-wm30.onrender.com/api/v1/signup";
+const REGISTER_URL = "https://blogzilha-piyj.onrender.com/auth/register";
 
 const SignUp = () => {
+  const navigate = useNavigate();
   const userRef = useRef();
   const errRef = useRef();
 
@@ -32,7 +33,6 @@ const SignUp = () => {
   const [emailFocus, setEmailFocus] = useState(false);
 
   const [errMsg, setErrMsg] = useState("");
-  const [success, setSuccess] = useState(false);
 
   useEffect(() => {
     userRef.current.focus();
@@ -86,7 +86,7 @@ const SignUp = () => {
       console.log(response.data);
       console.log(response.accessToken);
       console.log(JSON.stringify(response));
-      setSuccess(true);
+      navigate("/login");
     } catch (err) {
       if (!err?.response) {
         setErrMsg("No Server Response");
@@ -100,14 +100,6 @@ const SignUp = () => {
 
   return (
     <>
-      {success ? (
-        <div className="success-msg">
-          <h1>success!</h1>
-          <p>
-            <Link to="/login">Login</Link>
-          </p>
-        </div>
-      ) : (
         <div className="sign-up-page">
           <form className="add-form" autoComplete="off" onSubmit={handleSubmit}>
             <h3>Create an acount</h3>
@@ -222,7 +214,6 @@ const SignUp = () => {
             </p>
           </form>
         </div>
-      )}
     </>
   );
 };

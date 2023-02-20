@@ -5,7 +5,7 @@ const SingleBlog = ({ blogs }) => {
   const { blogId } = useParams();
   console.log(blogId);
   const single = blogs.find((blog) => blog._id === blogId);
-  const { title, image, description, author } = single;
+  const { title, image, body, author } = single;
   return (
     <>
       <div className="single">
@@ -14,7 +14,7 @@ const SingleBlog = ({ blogs }) => {
           <div className="blog-title">
             <h3>{title}</h3>
             <br />
-            <p>{description}</p>
+            <p>{body}</p>
             <br />
             <h5>Written by: {author}</h5>
             <p>on 06 February 2023</p>

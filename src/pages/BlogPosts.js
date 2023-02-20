@@ -10,7 +10,8 @@ const BlogPosts = ({ blogs }) => {
   const { register, handleSubmit, reset } = useForm({
     defaultValues: {
       title: selected?.title,
-      description: selected?.description,
+      category: selected?.category,
+      description: selected?.body,
     },
   });
 
@@ -20,7 +21,7 @@ const BlogPosts = ({ blogs }) => {
     try {
       await axios({
         method: "DELETE",
-        url: `https://blogapi-wm30.onrender.com/api/v1/blog/${id}`,
+        url: `https://blogzilha-piyj.onrender.com/api/stories/${id}`,
         headers: {
           "content-Type": "multipart/form-data",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -43,14 +44,15 @@ const BlogPosts = ({ blogs }) => {
     // eslint-disable-next-line
   }, [selected]); 
 
-  const onSubmit = async ({ image, title, description }) => {
+  const onSubmit = async ({ file, title, body, category }) => {
     try {
       const formData = new FormData();
-      formData.append("image", image[0]);
+      formData.append("file", file[0]);
       formData.append("title", title);
-      formData.append("description", description);
-      await axios.patch(
-        `https://blogapi-wm30.onrender.com/api/v1/blog/${selected._id}`,
+      formData.append("category", category);
+      formData.append("body", body);
+      await axios.put(
+        `https://blogzilha-piyj.onrender.com/api/stories/${selected._id}`,
         formData,
         {
           headers: {
@@ -72,7 +74,7 @@ const BlogPosts = ({ blogs }) => {
 
   return (
     <>
-      <h1 className="blogs-title">Blog Posts</h1>
+      <h2 className="blogs-title">Blog Posts</h2>
       <table className="dashboard-blogs">
         {blogs.map((blog, index) => {
           return (
@@ -131,17 +133,16 @@ const BlogPosts = ({ blogs }) => {
             <input type="text" {...register("title")} />
           </div>
           <div className="blog-form-control">
+            <label>Category</label>
+            <input type="text" {...register("category")} />
+          </div>
+          <div className="blog-form-control">
             <label>Description</label>
-            <textarea
-              type="text"
-              cols="20"
-              rows="10"
-              {...register("description")}
-            />
+            <textarea type="text" cols="20" rows="10" {...register("body")} />
           </div>
           <div className="blog-form-control">
             <label>Image</label>
-            <input type="file" {...register("image")} />
+            <input type="file" {...register("file")} />
           </div>
           <div className="modal-footer">
             <button className="add">Save updates</button>

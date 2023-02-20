@@ -17,10 +17,10 @@ const App = () => {
 
   // fetch blogs
   const fetchBlogs = async () => {
-    const res = await fetch("https://blogapi-wm30.onrender.com/api/v1/blog");
+    const res = await fetch("https://blogzilha-piyj.onrender.com/api/stories");
     const data = await res.json();
 
-    return data.blogs;
+    return data.data;
   };
   console.log(blogs);
 
@@ -33,15 +33,6 @@ const App = () => {
     
   }, []);
 
-  // Delete blog
-
-  const deleteBlog = async (id) => {
-    await fetch(`https://blogapi-wm30.onrender.com/api/v1/blog/${id}`, {
-      method: "DELETE",
-    });
-    setBlogs(blogs.filter((blog) => blog.id !== id));
-    console.log("delete", id);
-  };
 
   return (
     <BrowserRouter>
@@ -56,7 +47,7 @@ const App = () => {
           <Route index element={<Manage />} />
           <Route
             path="blogs"
-            element={<BlogPosts blogs={blogs} onDelete={deleteBlog} />}
+            element={<BlogPosts blogs={blogs} />}
           />
           <Route path="new" element={<NewPost />} />
         </Route>

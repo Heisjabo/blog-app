@@ -2,14 +2,15 @@ import { Link } from "react-router-dom";
 import { useState, useContext } from "react";
 import AuthContext from "../context/AuthProvider";
 import axios from "axios";
+import {useNavigate} from "react-router-dom";
 
-const LOGIN_URL = "https://blogapi-wm30.onrender.com/api/v1/signin";
+const LOGIN_URL = "https://blogzilha-piyj.onrender.com/auth/login";
 
 const Login = () => {
+  const navigate = useNavigate();
   const { setAuth } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [success, setSuccess] = useState(false);
 
   const [errMsg, setErrMsg] = useState("");
 
@@ -32,7 +33,7 @@ const Login = () => {
       console.log("item from storage", localStorage.getItem("token"));
       setEmail("");
       setPassword("");
-      setSuccess(true);
+      navigate("/dashboard");
     } catch (err) {
       if (!err?.response) {
         setErrMsg("No Server Response");
@@ -48,15 +49,6 @@ const Login = () => {
 
   return (
     <>
-      {success ? (
-        <section className="add-form">
-          <h1>You are logged in!</h1>
-          <br />
-          <p>
-            <Link to="/dashboard">Go to Home</Link>
-          </p>
-        </section>
-      ) : (
         <form className="add-form">
           <h3>Welcome back</h3>
           <p style={{ color: "red" }}>{errMsg}</p>
@@ -84,7 +76,6 @@ const Login = () => {
             </Link>{" "}
           </p>
         </form>
-      )}
     </>
   );
 };
