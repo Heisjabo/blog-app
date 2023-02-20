@@ -23,6 +23,7 @@ const App = () => {
     return data.data;
   };
   console.log(blogs);
+  console.log("working");
 
   useEffect(() => {
     const getBlogs = async () => {
